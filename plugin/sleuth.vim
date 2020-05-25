@@ -16,7 +16,7 @@ function! s:guess(lines) abort
   let triplequote = 0
   let backtick = 0
   let xmlcomment = 0
-  let softtab = repeat(' ', 8)
+  let softtab = repeat(' ', &softtabstop)
 
   for line in a:lines
     if !len(line) || line =~# '^\s*$'
@@ -91,7 +91,8 @@ function! s:guess(lines) abort
   elseif heuristics.soft != heuristics.hard
     let options.expandtab = heuristics.soft > heuristics.hard
     if heuristics.hard
-      let options.tabstop = 8
+      let options.tabstop = &tabstop
+      let options.shiftwidth = &shiftwidth ? &shiftwidth : options.shiftwidth
     endif
   endif
 
